@@ -69,8 +69,8 @@ const Home = () => {
             </div>
             
             <div className="owner-details">
-              <h3 className="owner-name"> Gitta Chandrashekar Reddy</h3>
-              <p className="owner-title">Founder & CEO, Swayam Krushi (SK) Estates</p>
+              <h3 className="owner-name"> Chandra Sekhar Reddy Jitta</h3>
+              <p className="owner-title">Founder & CEO, Swayam Krushi (SK) Developers</p>
               
               <div className="owner-info">
                 <div className="info-item">
@@ -120,7 +120,7 @@ const Home = () => {
       <section className="features">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">Why Choose Swayam Krushi (SK) Estates?</h2>
+            <h2 className="section-title">Why Choose Swayam Krushi (SK) Developers?</h2>
             <p className="section-subtitle">We make your property dreams a reality</p>
           </div>
           

@@ -296,7 +296,7 @@ const PropertyDetail = () => {
                 {showMap && (
                   <div className="map-iframe">
                     <iframe
-                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dOWDgvF0q4lU&q=${property.coordinates.lat},${property.coordinates.lng}`}
+                      src={`https://www.google.com/maps?q=${property.coordinates.lat},${property.coordinates.lng}&z=15&output=embed`}
                       width="100%"
                       height="300"
                       style={{ border: 0 }}

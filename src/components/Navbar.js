@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="container">
         <div className="nav-content">
           <Link to="/" className="logo">
-            <i className="fas fa-home"></i> Swayam Krushi (SK) Estates
+            <i className="fas fa-home"></i> Swayam Krushi (SK) Developers
           </Link>
           <ul className="nav-links">
             <li><Link to="/">Home</Link></li>
