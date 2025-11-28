@@ -1,113 +1,117 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { propertiesData } from '../data/properties';
 import './PropertyDetail.css';
 
 const PropertyDetail = () => {
-  const { id } = useParams();
-  const [property, setProperty] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showMap, setShowMap] = useState(false);
-  const [savedProperties, setSavedProperties] = useState([]);
-  const [showContactModal, setShowContactModal] = useState(false);
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    action: ''
-  });
+        const { id } = useParams();
+        const [property, setProperty] = useState(null);
+        const [currentImageIndex, setCurrentImageIndex] = useState(0);
+        const [showMap, setShowMap] = useState(false);
+        const [savedProperties, setSavedProperties] = useState([]);
+        const [showContactModal, setShowContactModal] = useState(false);
+        const [contactForm, setContactForm] = useState({
+            name: '',
+            email: '',
+            phone: '',
+            message: '',
+            action: ''
+        });
 
-  useEffect(() => {
-    const foundProperty = propertiesData.find(p => p.id === parseInt(id));
-    setProperty(foundProperty);
-  }, [id]);
+        useEffect(() => {
+            const foundProperty = propertiesData.find(p => p.id === parseInt(id));
+            setProperty(foundProperty);
+        }, [id]);
 
-  if (!property) {
-    return (
-      <div className="property-detail-page">
-        <div className="container">
-          <div className="not-found">
-            <h2>Property not found</h2>
-            <Link to="/properties" className="btn btn-primary">Back to Properties</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        if (!property) {
+            return ( <
+                div className = "property-detail-page" >
+                <
+                div className = "container" >
+                <
+                div className = "not-found" >
+                <
+                h2 > Property not found < /h2> <
+                Link to = "/properties"
+                className = "btn btn-primary" > Back to Properties < /Link> <
+                /div> <
+                /div> <
+                /div>
+            );
+        }
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(price);
-  };
+        const formatPrice = (price) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(price);
+        };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === property.images.length - 1 ? 0 : prev + 1
-    );
-  };
+        const nextImage = () => {
+            setCurrentImageIndex((prev) =>
+                prev === property.images.length - 1 ? 0 : prev + 1
+            );
+        };
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? property.images.length - 1 : prev - 1
-    );
-  };
+        const prevImage = () => {
+            setCurrentImageIndex((prev) =>
+                prev === 0 ? property.images.length - 1 : prev - 1
+            );
+        };
 
-  // Contact functionality
-  const handleContactAction = (action) => {
-    setContactForm(prev => ({ ...prev, action }));
-    setShowContactModal(true);
-  };
+        // Contact functionality
+        const handleContactAction = (action) => {
+            setContactForm(prev => ({...prev, action }));
+            setShowContactModal(true);
+        };
 
-  const handleContactSubmit = (e) => {
-    e.preventDefault();
-    // Simulate form submission
-    alert(`Thank you ${contactForm.name}! Your ${contactForm.action.toLowerCase()} request has been submitted. We'll contact you soon at ${contactForm.email} or ${contactForm.phone}.`);
-    setShowContactModal(false);
-    setContactForm({ name: '', email: '', phone: '', message: '', action: '' });
-  };
+        const handleContactSubmit = (e) => {
+            e.preventDefault();
+            // Simulate form submission
+            alert(`Thank you ${contactForm.name}! Your ${contactForm.action.toLowerCase()} request has been submitted. We'll contact you soon at ${contactForm.email} or ${contactForm.phone}.`);
+            setShowContactModal(false);
+            setContactForm({ name: '', email: '', phone: '', message: '', action: '' });
+        };
 
-  const handleInputChange = (e) => {
-    setContactForm(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
+        const handleInputChange = (e) => {
+            setContactForm(prev => ({
+                ...prev,
+                [e.target.name]: e.target.value
+            }));
+        };
 
-  // Save property functionality
-  const handleSaveProperty = () => {
-    const isSaved = savedProperties.includes(property.id);
-    if (isSaved) {
-      setSavedProperties(prev => prev.filter(id => id !== property.id));
-      alert('Property removed from saved list!');
-    } else {
-      setSavedProperties(prev => [...prev, property.id]);
-      alert('Property saved to your favorites!');
-    }
-  };
+        // Save property functionality
+        const handleSaveProperty = () => {
+            const isSaved = savedProperties.includes(property.id);
+            if (isSaved) {
+                setSavedProperties(prev => prev.filter(id => id !== property.id));
+                alert('Property removed from saved list!');
+            } else {
+                setSavedProperties(prev => [...prev, property.id]);
+                alert('Property saved to your favorites!');
+            }
+        };
 
-  // Share property functionality
-  const handleShareProperty = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: property.title,
-        text: property.description,
-        url: window.location.href
-      });
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      navigator.clipboard.writeText(window.location.href);
-      alert('Property link copied to clipboard!');
-    }
-  };
+        // Share property functionality
+        const handleShareProperty = () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: property.title,
+                    text: property.description,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(window.location.href);
+                alert('Property link copied to clipboard!');
+            }
+        };
 
-  // Print functionality
-  const handlePrintDetails = () => {
-    const printWindow = window.open('', '_blank');
-    const printContent = `
+        // Print functionality
+        const handlePrintDetails = () => {
+                const printWindow = window.open('', '_blank');
+                const printContent = `
       <html>
         <head>
           <title>${property.title} - Property Details</title>
@@ -393,6 +397,13 @@ const PropertyDetail = () => {
               >
                 <i className="fas fa-print"></i> Print Details
               </button>
+              <Link 
+                to={`/property/${property.id}/emi`}
+                className="btn btn-primary btn-full"
+                style={{marginTop: '10px'}}
+              >
+                <i className="fas fa-calculator"></i> Calculate EMI
+              </Link>
             </div>
           </div>
         </div>

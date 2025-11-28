@@ -208,6 +208,15 @@ const Properties = () => {
                     <span className="amenity-tag">+{property.amenities.length - 3} more</span>
                   )}
                 </div>
+                
+                <div className="property-actions">
+                  <Link 
+                    to={`/property/${property.id}/emi`}
+                    className="btn btn-primary btn-full"
+                  >
+                    <i className="fas fa-calculator"></i> Calculate EMI
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
